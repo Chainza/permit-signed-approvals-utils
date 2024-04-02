@@ -1,8 +1,8 @@
 import {ProviderConnector} from './provider.connector';
-import Web3 from 'web3';
+import type Web3 from 'web3';
 import {EIP712TypedData} from '../model/eip712.model';
 import {AbiItem} from '../model/abi.model';
-import {AbiInput, AbiItem as Web3AbiItem} from 'web3-utils';
+import type {AbiInput, AbiItem as Web3AbiItem} from 'web3-utils';
 import {signTypedData, SignTypedDataVersion} from '@metamask/eth-sig-util';
 
 export class PrivateKeyProviderConnector implements ProviderConnector {

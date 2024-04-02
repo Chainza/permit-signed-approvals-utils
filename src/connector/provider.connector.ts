@@ -1,6 +1,6 @@
 import {EIP712TypedData} from '../model/eip712.model';
 import {AbiItem} from '../model/abi.model';
-import {AbiInput} from 'web3-utils';
+import type {AbiInput} from 'web3-utils';
 
 export interface ProviderConnector {
     contractEncodeABI(
