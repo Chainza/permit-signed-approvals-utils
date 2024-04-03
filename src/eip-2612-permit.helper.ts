@@ -1,4 +1,3 @@
-import Web3 from 'web3';
 import { eip2612PermitModelFields, TOKEN_ADDRESSES_WITH_SALT } from './eip-2612-permit.const';
 import { EIP712Object, EIP712TypedData } from './model/eip712.model';
 import { DaiPermitParams, PermitParams } from './model/permit.model';
@@ -109,14 +108,17 @@ export function buildTokenIdentifier(tokenAddress: string, chainId: number): str
 }
 
 function getSalt(data: PermitTypedDataParamsModel): string {
-    const web3 = new Web3();
     const { chainId, tokenAddress } = data;
     const identifier = buildTokenIdentifier(tokenAddress, chainId);
     if (TOKEN_ADDRESSES_WITH_SALT.includes(identifier)) {
-        return web3.eth.abi.encodeParameter('uint256', `${chainId}`)
+        return encodeNumber(chainId);
     }
     console.warn(
         `mapper for token ${tokenAddress} from network chainId: ${chainId} not exist`
     )
-    return web3.eth.abi.encodeParameter('uint256', '0');
+    return encodeNumber(0);
+}
+
+function encodeNumber(value: number): string {
+    return `0x${value.toString(16).padStart(64, '0')}`;
 }
